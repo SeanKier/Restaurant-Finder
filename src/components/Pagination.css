@@ -1,0 +1,28 @@
+.pagination-container {
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-icon {
+ font-size: 50px;
+ margin-bottom: 5px;
+}
+
+.pagination-button {
+ margin: 20px;
+}
+
+.pagination-button:hover {
+ cursor: pointer;
+}
+
+.pagination-container {
+ width:100%;
+ display: flex;
+ justify-content: center;
+}
+
+.button-container {
+ display: flex;
+}

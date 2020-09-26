@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleRight, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
-import './Table.css';
+import './Home.css';
 import Restuarants from './Restuarants';
+import Pagination from './Pagination';
 
-const Table = () => {
+const Home = () => {
   const [restaurants, updateResturants] = useState([]);
   const [currentPage, changePage] = useState(1);
-  const [currentRests, updateCurrentRest] = useState([]);
+  const [currentRestaurants, updateCurrentRestaurants] = useState([]);
   const [genre, setGenre] = useState('All');
   const [currentState, setNewState] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +16,7 @@ const Table = () => {
     changePage(currentPage + 1);
   }
 
-  const prevPage = () => {
+  const previousPage = () => {
     if (currentPage > 1) {
       changePage(currentPage - 1);
     }
@@ -30,10 +29,10 @@ const Table = () => {
       },
      })
       .then((response) => response.json())
-      .then((response) => {
-        response.sort((a, b) => a.name.localeCompare(b.name));
-        updateResturants(response);
-        updateCurrentRest(response);
+      .then((responses) => {
+        responses.sort((responseA, responseB) => responseA.name.localeCompare(responseB.name));
+        updateResturants(responses);
+        updateCurrentRestaurants(responses);
       })
       .catch((err) => {
         console.log(err);
@@ -48,11 +47,11 @@ const Table = () => {
     setNewState(event.target.value);
   }
 
-  const handleInputChange = (event) => {
+  const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
   }
 
-  const onKeyDownHandler = (event) => {
+  const onSearchInputKeyDownHandler = (event) => {
     if (event.key === 'Enter') {
       applyFilters();
     }
@@ -65,31 +64,25 @@ const Table = () => {
   }
 
   const applyFilters = () => {
-    let filteredByGenre = [];
+    let filteredByGenre = restaurants;
     if (genre !== 'All') {
-      filteredByGenre = restaurants.filter((rest) => {
+      filteredByGenre = filteredByGenre.filter((rest) => {
         return rest.genre.includes(genre);
       })
-    } else {
-      filteredByGenre = restaurants;
     }
-    let filteredByState = [];
+    let filteredByState = filteredByGenre;
     if (currentState !== 'All') {
-      filteredByState = filteredByGenre.filter((rest) => {
+      filteredByState = filteredByState.filter((rest) => {
         return rest.state === currentState;
       })
-    } else {
-      filteredByState = filteredByGenre;
     }
-    let filteredBySearch = [];
+    let filteredBySearch = filteredByState;
     if (searchTerm !== '') {
-      filteredBySearch = filteredByState.filter((rest) => {
+      filteredBySearch = filteredBySearch.filter((rest) => {
         return rest.name.includes(searchTerm) || rest.state === searchTerm || rest.genre.includes(searchTerm);
       })
-    } else {
-      filteredBySearch = filteredByState;
     }
-    updateCurrentRest(filteredBySearch);
+    updateCurrentRestaurants(filteredBySearch);
   }
 
   const foodGenres = ['American', 'Seafood', 'International', 'Asian', 'Cafe'];
@@ -123,8 +116,8 @@ const Table = () => {
         name="search"
         size="65"
         placeholder="Search for restuarants"
-        onChange={handleInputChange}
-        onKeyPress={onKeyDownHandler}
+        onChange={handleSearchInputChange}
+        onKeyPress={onSearchInputKeyDownHandler}
       />
       <button
         className="search-button"
@@ -154,42 +147,15 @@ const Table = () => {
         </select>
       </label>
       </div>
-      <Restuarants restaurants={currentRests.slice((currentPage - 1) * 10, currentPage * 10)} />
-      { currentRests.length === 0 && (
+      <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} />
+      { currentRestaurants.length === 0 && (
           <div className="no-results">
-            There does not seem to be any results
+            There does not seem to be any results. Please adjust options to find more restaurants
           </div>
         )}
-      <div className="outer">
-        <div className="button-container">
-          <div
-            className="nav-button"
-            onClick={prevPage}
-          >
-            <FontAwesomeIcon
-              className="nav-icon"
-              icon={faArrowAltCircleLeft}
-            />
-            <div>
-              Previous Page
-            </div>
-          </div>
-          <div
-            className="nav-button"
-            onClick={nextPage}
-          >
-            <FontAwesomeIcon
-              className="nav-icon"
-              icon={faArrowAltCircleRight}
-            />
-            <div>
-              Next Page
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Pagination nextPage={nextPage} previousPage={previousPage} />
+   </div>
   );
 };
 
-export default Table;
+export default Home;

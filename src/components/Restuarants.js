@@ -4,17 +4,17 @@ import './Restuarants.css';
 import './MoreInfo.css';
 import MoreInfo from './MoreInfo';
 
-const RestuarantItem = ({ rest, isExpanded, setCurrentRest }) => {
+const RestaurantItem = ({ restaurant, isExpanded, setCurrentRestaurant }) => {
 
-  const handleClick = () => {
-    setCurrentRest(rest);
+  const handleShowMoreInfoClick = () => {
+    setCurrentRestaurant(restaurant);
     isExpanded(true);
   };
 
-  const { name, city, state, telephone, genre } = rest;
+  const { name, city, state, telephone, genre } = restaurant;
   return (
     <tr
-      onClick={handleClick}
+      onClick={handleShowMoreInfoClick}
     >
       <td className="name">
         {name}
@@ -38,7 +38,7 @@ const RestuarantItem = ({ rest, isExpanded, setCurrentRest }) => {
 
 
 const Restuarants = ({ restaurants }) => {
-  const [currentRest, setCurrentRest] = useState({});
+  const [currentRestaurant, setCurrentRestaurant] = useState({});
   const [expanded, isExpanded] = useState(false);
 
   return (
@@ -54,11 +54,11 @@ const Restuarants = ({ restaurants }) => {
         </tr>
         </thead>
         <tbody>
-        {restaurants.map((rest, i) => <RestuarantItem rest={rest} isExpanded={isExpanded} setCurrentRest={setCurrentRest} key={i}/>)}
+        {restaurants.map((restaurant, i) => <RestaurantItem restaurant={restaurant} isExpanded={isExpanded} setCurrentRestaurant={setCurrentRestaurant} key={i}/>)}
         </tbody>
       </table>
       { expanded && (
-        <MoreInfo currentRest={currentRest} isExpanded={isExpanded} />
+        <MoreInfo currentRestaurant={currentRestaurant} isExpanded={isExpanded} />
       )}
     </div>
   )

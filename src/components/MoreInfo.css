@@ -59,3 +59,22 @@
   width: 500px;
   margin: 10px;
 }
+
+.close-button {
+  border: none;
+  margin: 10px;
+  background: #61dafb;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 500ms ease;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  color: black;
+  background:rgba(134, 132, 132, 0.452);
+ }

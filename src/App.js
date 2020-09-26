@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Table from './components/Table';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <h1>
         Charter/Spectrum Front End Code Challenge
       </h1>
-      <Table />
+      <Home />
     </div>
   );
 }

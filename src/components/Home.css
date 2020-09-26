@@ -29,29 +29,6 @@ th {
   font-size: 12px;
 }
 
-.nav-icon {
-  font-size: 50px;
-  margin-bottom: 5px;
-}
-
-.nav-button {
-  margin: 20px;
-}
-
-.nav-button:hover {
-  cursor: pointer;
-}
-
-.outer {
-  width:100%;
-  display: flex;
-  justify-content: center;
-}
-
-.button-container {
-  display: flex;
-}
-
 .search-input {
   padding: 10px 5px;
   line-height: 10px;
@@ -74,9 +51,9 @@ th {
   cursor: pointer;
   color: black;
   background:rgba(134, 132, 132, 0.452);
-}
+ }
 
-.no-results {
+ .no-results {
   min-width: 500px;
   min-height: 300px;
-}
+ }

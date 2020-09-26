@@ -2,13 +2,13 @@ import React from 'react';
 
 import './MoreInfo.css';
 
-const MoreInfo = ({ currentRest, isExpanded }) => {
+const MoreInfo = ({ currentRestaurant, isExpanded }) => {
 
-  const handleClick = () => {
+  const handleCloseMoreInfoClick = () => {
     isExpanded(false);
   }
 
-  const { name, city, state, telephone, website, address1, zip, lat, long, hours } = currentRest;
+  const { name, city, state, telephone, website, address1, zip, lat, long, hours } = currentRestaurant;
 
   return (
     <div className="more-info-container">
@@ -74,8 +74,8 @@ const MoreInfo = ({ currentRest, isExpanded }) => {
           </div>
         </div>
         <button
-          className="search-button"
-          onClick={handleClick}
+          className="close-button"
+          onClick={handleCloseMoreInfoClick}
         >
           Close
         </button>
