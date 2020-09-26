@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Restuarants.css';
+import './MoreInfo.css';
+import MoreInfo from './MoreInfo';
 
-const RestuarantItem = ({ rest }) => {
+const RestuarantItem = ({ rest, isExpanded, setCurrentRest }) => {
+
+  const handleClick = () => {
+    setCurrentRest(rest);
+    isExpanded(true);
+  };
 
   const { name, city, state, telephone, genre } = rest;
   return (
-    <tr>
+    <tr
+      onClick={handleClick}
+    >
       <td className="name">
         {name}
       </td>
@@ -22,31 +31,38 @@ const RestuarantItem = ({ rest }) => {
       <td className="genre">
         {genre}
       </td>
+
     </tr>
   );
 };
 
 
 const Restuarants = ({ restaurants }) => {
+  const [currentRest, setCurrentRest] = useState({});
+  const [expanded, isExpanded] = useState(false);
 
   return (
-    <div>
-        <table>
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Phone Number</th>
-            <th>Type of Food</th>
-          </tr>
-          </thead>
-          <tbody>
-          {restaurants.map((rest, i) => <RestuarantItem rest={rest} key={i}/>)}
-          </tbody>
-        </table>
+    <div className="restuarant-container">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Phone Number</th>
+          <th>Type of Food</th>
+        </tr>
+        </thead>
+        <tbody>
+        {restaurants.map((rest, i) => <RestuarantItem rest={rest} isExpanded={isExpanded} setCurrentRest={setCurrentRest} key={i}/>)}
+        </tbody>
+      </table>
+      { expanded && (
+        <MoreInfo currentRest={currentRest} isExpanded={isExpanded} />
+      )}
     </div>
   )
 };
+
 
 export default Restuarants;

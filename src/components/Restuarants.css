@@ -13,3 +13,7 @@
 .name {
   width: 300px;
 }
+
+.restuarant-container {
+  position: relative;
+}

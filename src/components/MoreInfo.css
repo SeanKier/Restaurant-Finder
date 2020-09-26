@@ -1,0 +1,61 @@
+
+.more-info {
+  max-width: 500px;
+  background: #f4f4f4;
+  border-radius: 5px;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #61dafb;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.10),
+     0px 10px 20px rgba(0,0,0,0.05),
+     0px 20px 20px rgba(0,0,0,0.05),
+     0px 30px 20px rgba(0,0,0,0.05);
+}
+
+.more-info-container {
+  position: absolute;
+  top: 0%;
+  left: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.info {
+  text-align: left;
+}
+
+.hours {
+  width: 205px;
+}
+
+.phone {
+  width: 120px;
+}
+
+.address {
+  width: 120px;
+}
+
+.info-title {
+  font-weight: bold;
+}
+
+.res-contact-container {
+  display: flex;
+  justify-content: center;
+}
+
+.rest-url {
+  text-align: center;
+}
+
+.contact-type {
+  margin: 10px;
+}
+
+.website-container {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  margin: 10px;
+}
