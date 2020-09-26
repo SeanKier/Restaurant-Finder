@@ -13,7 +13,9 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const nextPage = () => {
-    changePage(currentPage + 1);
+    if (currentPage * 10 < restaurants.length) {
+      changePage(currentPage + 1);
+    }
   }
 
   const previousPage = () => {
@@ -66,20 +68,21 @@ const Home = () => {
   const applyFilters = () => {
     let filteredByGenre = restaurants;
     if (genre !== 'All') {
-      filteredByGenre = filteredByGenre.filter((rest) => {
-        return rest.genre.includes(genre);
+      filteredByGenre = filteredByGenre.filter((restaurant) => {
+        return restaurant.genre.includes(genre);
       })
     }
     let filteredByState = filteredByGenre;
     if (currentState !== 'All') {
-      filteredByState = filteredByState.filter((rest) => {
-        return rest.state === currentState;
+      filteredByState = filteredByState.filter((restaurant) => {
+        return restaurant.state === currentState;
       })
     }
     let filteredBySearch = filteredByState;
     if (searchTerm !== '') {
-      filteredBySearch = filteredBySearch.filter((rest) => {
-        return rest.name.includes(searchTerm) || rest.state === searchTerm || rest.genre.includes(searchTerm);
+      filteredBySearch = filteredBySearch.filter((restaurant) => {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        return restaurant.name.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.state.toLowerCase() === lowerCaseSearchTerm || restaurant.genre.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm);
       })
     }
     updateCurrentRestaurants(filteredBySearch);

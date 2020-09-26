@@ -69,7 +69,7 @@ const MoreInfo = ({ currentRestaurant, isExpanded }) => {
               Hours:
             </div>
             <div className="info">
-              {hours.split(';').map((day) => <div>{day}</div>)}
+              {hours.split(';').map((day, i) => <div key={i}>{day}</div>)}
             </div>
           </div>
         </div>
