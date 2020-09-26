@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Restuarants from './Restuarants';
 import Pagination from './Pagination';
+import Selector from './Selector';
 
 const Home = () => {
   const [restaurants, updateResturants] = useState([]);
@@ -112,44 +113,24 @@ const Home = () => {
   return (
     <div>
       <div>
-      <div>
-      <input
-        className="search-input"
-        type="text"
-        name="search"
-        size="65"
-        placeholder="Search for restuarants"
-        onChange={handleSearchInputChange}
-        onKeyPress={onSearchInputKeyDownHandler}
-      />
-      <button
-        className="search-button"
-        onClick={applyFilters}
-      >
-        GO!
-      </button>
+        <input
+          className="search-input"
+          type="text"
+          name="search"
+          size="65"
+          placeholder="Search for restuarants"
+          onChange={handleSearchInputChange}
+          onKeyPress={onSearchInputKeyDownHandler}
+        />
+        <button
+          className="search-button"
+          onClick={applyFilters}
+        >
+          GO!
+        </button>
       </div>
-      <label className="selector">
-        Pick your favorite type of food:
-        <select value={genre} onChange={handleGenreChange}>
-          <option value="All">All</option>
-          {foodGenres.map((genre, i) =>
-            <option value={genre} key={i}>{genre}</option>
-          )}
-        </select>
-      </label>
-      </div>
-      <div>
-      <label className="selector">
-        Pick your state
-        <select value={currentState} onChange={handleStateChange}>
-          <option value="All">All</option>
-          {stateAbbreviations.map((genre, i) =>
-            <option value={genre} key={i}>{genre}</option>
-          )}
-        </select>
-      </label>
-      </div>
+      <Selector title={'Pick your favorite type of food:'} currentValue={genre} handleChange={handleGenreChange} options={foodGenres} />
+      <Selector title={'Pick your state:'} currentValue={currentState} handleChange={handleStateChange} options={stateAbbreviations} />
       <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} />
       { currentRestaurants.length === 0 && (
           <div className="no-results">
