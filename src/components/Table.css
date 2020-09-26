@@ -75,3 +75,8 @@ th {
   color: black;
   background:rgba(134, 132, 132, 0.452);
 }
+
+.no-results {
+  min-width: 500px;
+  min-height: 300px;
+}

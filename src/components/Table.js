@@ -155,6 +155,11 @@ const Table = () => {
       </label>
       </div>
       <Restuarants restaurants={currentRests.slice((currentPage - 1) * 10, currentPage * 10)} />
+      { currentRests.length === 0 && (
+          <div className="no-results">
+            There does not seem to be any results
+          </div>
+        )}
       <div className="outer">
         <div className="button-container">
           <div
