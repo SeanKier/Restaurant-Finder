@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 import './Restuarants.css';
 import MoreInfo from './MoreInfo';
@@ -47,7 +49,7 @@ RestaurantItem.propTypes = {
   setCurrentRestaurant: PropTypes.func.isRequired
 };
 
-const Restuarants = ({ restaurants }) => {
+const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByNameDirection, sortByStateDirection }) => {
   const [currentRestaurant, setCurrentRestaurant] = useState({});
   const [expanded, isExpanded] = useState(false);
 
@@ -56,10 +58,52 @@ const Restuarants = ({ restaurants }) => {
       <table>
         <thead>
         <tr>
-          <th>Name</th>
+          <th
+            className="table-head-sortable"
+            onClick={handleSortByName}
+            >
+            <div className="table-sortable-container">
+              { sortByNameDirection && (
+                <FontAwesomeIcon
+                  className="sorting-arrow"
+                  icon={faArrowUp}
+                />
+              )}
+              { !sortByNameDirection && (
+                <FontAwesomeIcon
+                  className="sorting-arrow"
+                  icon={faArrowDown}
+                />
+              )}
+              <div>
+                Name
+              </div>
+            </div>
+          </th>
           <th>City</th>
-          <th>State</th>
-          <th>Phone Number</th>
+          <th
+            className="table-head-sortable"
+            onClick={handleSortByState}
+            >
+            <div className="table-sortable-container">
+              { sortByStateDirection && (
+                <FontAwesomeIcon
+                  className="sorting-arrow"
+                  icon={faArrowUp}
+                />
+              )}
+              { !sortByStateDirection && (
+                <FontAwesomeIcon
+                  className="sorting-arrow"
+                  icon={faArrowDown}
+                />
+              )}
+              <div>
+                State
+              </div>
+            </div>
+          </th>
+          <th>Phone</th>
           <th>Type of Food</th>
         </tr>
         </thead>
@@ -77,6 +121,10 @@ const Restuarants = ({ restaurants }) => {
 
 Restuarants.propTypes = {
   restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSortByName: PropTypes.func.isRequired,
+  handleSortByState: PropTypes.func.isRequired,
+  sortByNameDirection: PropTypes.bool.isRequired,
+  sortByStateDirection:PropTypes.bool.isRequired,
 };
 
 export default Restuarants;

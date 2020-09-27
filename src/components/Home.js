@@ -13,6 +13,8 @@ const Home = () => {
   const [currentState, setNewState] = useState('All');
   const [currentAttire, setAttire] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortByNameDirection, changeSorttByNameDirection] = useState(true);
+  const [sortByStateDirection, changeSortByStateDirection] = useState(true);
 
   const nextPage = () => {
     if (currentPage * 10 < restaurants.length) {
@@ -59,6 +61,28 @@ const Home = () => {
     setAttire(event.target.value);
   }
 
+  const handleSortByName = () => {
+    let sortedRestaurants;
+    if (sortByNameDirection) {
+      sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantB.name.localeCompare(restaurantA.name));
+    } else  {
+      sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantA.name.localeCompare(restaurantB.name));
+    }
+    updateCurrentRestaurants(sortedRestaurants);
+    changeSorttByNameDirection(!sortByNameDirection);
+  }
+
+  const handleSortByState =  () => {
+    let sortedRestaurants;
+    if (sortByStateDirection) {
+      sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantB.state.localeCompare(restaurantA.state));
+    } else  {
+      sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantA.state.localeCompare(restaurantB.state));
+    }
+    updateCurrentRestaurants(sortedRestaurants);
+    changeSortByStateDirection(!sortByStateDirection);
+  }
+
   const onSearchInputKeyDownHandler = (event) => {
     if (event.key === 'Enter') {
       applyFilters();
@@ -84,7 +108,7 @@ const Home = () => {
         return restaurant.state === currentState;
       })
     }
-    let filteredByAttire = filteredByGenre;
+    let filteredByAttire = filteredByState;
     if (currentAttire !== 'All') {
       filteredByAttire = filteredByAttire.filter((restaurant) => {
         return restaurant.attire === currentAttire;
@@ -146,7 +170,7 @@ const Home = () => {
         <Selector title={'Pick your state:'} currentValue={currentState} handleChange={handleStateChange} options={stateAbbreviations} />
         <Selector title={'Pick your dress attire:'} currentValue={currentAttire} handleChange={handleAttireChange} options={attireOptions} />
       </div>
-      <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} />
+      <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} handleSortByName={handleSortByName} handleSortByState={handleSortByState} sortByNameDirection={sortByNameDirection} sortByStateDirection={sortByStateDirection} />
       { currentRestaurants.length === 0 && (
           <div className="no-results">
             There does not seem to be any results. Please adjust options to find more restaurants
