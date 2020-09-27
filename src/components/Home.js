@@ -116,7 +116,7 @@ const Home = () => {
     'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
     'VT','VI','VA','WA','WV','WI','WY'
    ];
-   const attireOptions = ['casual', 'smart asual', 'business casual', 'formal'];
+   const attireOptions = ['casual', 'smart casual', 'business casual', 'formal'];
 
   useEffect(() => {
     applyFilters();
