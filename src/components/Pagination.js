@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleRight, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 import './Pagination.css';
 
@@ -34,5 +35,10 @@ const Pagination = ({ previousPage, nextPage }) => (
     </div>
   </div>
 );
+
+Pagination.propTypes = {
+  previousPage: PropTypes.func.isRequired,
+  nextPage: PropTypes.func.isRequired,
+};
 
 export default Pagination;

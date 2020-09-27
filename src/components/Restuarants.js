@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import './Restuarants.css';
 import MoreInfo from './MoreInfo';
@@ -30,11 +31,21 @@ const RestaurantItem = ({ restaurant, isExpanded, setCurrentRestaurant }) => {
       <td className="genre">
         {genre}
       </td>
-
     </tr>
   );
 };
 
+RestaurantItem.propTypes = {
+  restaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    telephone: PropTypes.string.isRequired,
+    genre:PropTypes.string.isRequired,
+  }).isRequired,
+  isExpanded: PropTypes.func.isRequired,
+  setCurrentRestaurant: PropTypes.func.isRequired
+};
 
 const Restuarants = ({ restaurants }) => {
   const [currentRestaurant, setCurrentRestaurant] = useState({});
@@ -63,5 +74,9 @@ const Restuarants = ({ restaurants }) => {
   )
 };
 
+
+Restuarants.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Restuarants;

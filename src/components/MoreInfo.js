@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './MoreInfo.css';
 
@@ -82,6 +83,22 @@ const MoreInfo = ({ currentRestaurant, isExpanded }) => {
       </div>
     </div>
   );
+};
+
+MoreInfo.propTypes = {
+  currentRestaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    telephone: PropTypes.string.isRequired,
+    website: PropTypes.string.isRequired,
+    address1: PropTypes.string.isRequired,
+    zip:PropTypes.string.isRequired,
+    lat:PropTypes.string.isRequired,
+    long:PropTypes.string.isRequired,
+    hours:PropTypes.string.isRequired,
+  }).isRequired,
+  isExpanded: PropTypes.func.isRequired,
 };
 
 export default MoreInfo;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Selector.css';
 
@@ -15,5 +16,12 @@ const Selector = ({ currentValue, handleChange, options, title }) => (
     </label>
   </div>
 );
+
+Selector.propTypes = {
+  currentValue: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default Selector;
