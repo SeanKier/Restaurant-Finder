@@ -17,7 +17,7 @@ const Home = () => {
   const [sortByStateDirection, changeSortByStateDirection] = useState(true);
 
   const nextPage = () => {
-    if (currentPage * 10 < restaurants.length) {
+    if (currentPage * 10 < currentRestaurants.length) {
       changePage(currentPage + 1);
     }
   }
@@ -106,6 +106,7 @@ const Home = () => {
       )
     });
     updateCurrentRestaurants(filteredRestaurants);
+    changePage(1);
   };
 
   const foodGenres = ['American', 'Seafood', 'International', 'Asian', 'Cafe'];

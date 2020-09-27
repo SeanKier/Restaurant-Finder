@@ -8,7 +8,7 @@ import './Pagination.css';
 
 const Pagination = ({ previousPage, nextPage, currentPage, currentRestaurantsLength }) => {
   const previousButtonIsActive = currentPage > 1;
-  const nextButtonIsActive = currentPage * 10 < currentRestaurantsLength;
+  const nextButtonIsActive = currentPage * 10 < currentRestaurantsLength && currentRestaurantsLength !== 0;
 
   return (
     <div className="pagination-container">
@@ -45,7 +45,7 @@ const Pagination = ({ previousPage, nextPage, currentPage, currentRestaurantsLen
 Pagination.propTypes = {
   previousPage: PropTypes.func.isRequired,
   nextPage: PropTypes.func.isRequired,
-  pageNumber: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
   currentRestaurantsLength: PropTypes.number.isRequired,
 };
 
