@@ -13,8 +13,16 @@
  margin: 20px;
 }
 
-.pagination-button:hover {
- cursor: pointer;
+.active {
+  color: black;
+}
+
+.active:hover {
+  cursor: pointer;
+ }
+
+.inactive {
+  color: rgb(150, 150, 150);
 }
 
 .pagination-container {

@@ -176,7 +176,7 @@ const Home = () => {
             There does not seem to be any results. Please adjust options to find more restaurants
           </div>
         )}
-      <Pagination nextPage={nextPage} previousPage={previousPage} />
+      <Pagination nextPage={nextPage} previousPage={previousPage} currentPage={currentPage} currentRestaurantsLength={currentRestaurants.length} />
    </div>
   );
 };
