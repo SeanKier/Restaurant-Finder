@@ -59,7 +59,7 @@ const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByN
         <thead>
         <tr>
           <th
-            className="table-head-sortable"
+            className="name table-head-sortable"
             onClick={handleSortByName}
             >
             <div className="table-sortable-container">
@@ -80,7 +80,7 @@ const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByN
               </div>
             </div>
           </th>
-          <th>City</th>
+          <th className="city">City</th>
           <th
             className="table-head-sortable"
             onClick={handleSortByState}
@@ -98,13 +98,13 @@ const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByN
                   icon={faArrowDown}
                 />
               )}
-              <div>
+              <div className="state">
                 State
               </div>
             </div>
           </th>
-          <th>Phone</th>
-          <th>Type of Food</th>
+          <th className="telephone">Phone</th>
+          <th className="genre">Type of Food</th>
         </tr>
         </thead>
         <tbody>

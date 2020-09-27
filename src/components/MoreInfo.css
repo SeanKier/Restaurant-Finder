@@ -1,6 +1,6 @@
 
 .more-info {
-  max-width: 500px;
+  min-width: 700px;
   background: #f4f4f4;
   border-radius: 5px;
   border-collapse: collapse;
@@ -15,7 +15,7 @@
 .more-info-container {
   position: absolute;
   top: 0%;
-  left: 35%;
+  left: 30%;
   display: flex;
   justify-content: center;
 }
@@ -25,15 +25,15 @@
 }
 
 .hours {
-  width: 205px;
+  width: 220px;
 }
 
 .phone {
-  width: 120px;
+  width: 140px;
 }
 
 .address {
-  width: 120px;
+  width: 180px;
 }
 
 .info-title {
@@ -54,9 +54,9 @@
 }
 
 .website-container {
+  width: 700px;
   display: flex;
   justify-content: center;
-  width: 500px;
   margin: 10px;
 }
 
@@ -67,7 +67,7 @@
   color: #fff;
   padding: 10px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 7px;
   position: relative;
   box-sizing: border-box;
   transition: all 500ms ease;

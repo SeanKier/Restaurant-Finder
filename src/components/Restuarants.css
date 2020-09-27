@@ -46,7 +46,7 @@ th {
   background: #61dafb;
   color: #fff;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .table-sortable-container {
@@ -59,7 +59,7 @@ th {
 }
 
 .sorting-arrow {
-  font-size: 25px;
+  font-size: 20px;
   margin-right: 10px;
   margin-top: 3px;
 }
