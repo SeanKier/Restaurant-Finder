@@ -6,9 +6,9 @@ import classNames  from 'classnames';
 
 import './Pagination.css';
 
-const Pagination = ({ previousPage, nextPage, currentPage, currentRestaurantsLength }) => {
-  const previousButtonIsActive = currentPage > 1;
-  const nextButtonIsActive = currentPage * 10 < currentRestaurantsLength && currentRestaurantsLength !== 0;
+const Pagination = ({ previousPage, nextPage, page, listLength, pageSize }) => {
+  const previousButtonIsActive = page > 1;
+  const nextButtonIsActive = page * pageSize < listLength && listLength !== 0;
 
   return (
     <div className="pagination-container">
@@ -45,8 +45,9 @@ const Pagination = ({ previousPage, nextPage, currentPage, currentRestaurantsLen
 Pagination.propTypes = {
   previousPage: PropTypes.func.isRequired,
   nextPage: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  currentRestaurantsLength: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  listLength: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export default Pagination;

@@ -6,25 +6,27 @@ import Pagination from './Pagination';
 import Selector from './Selector';
 
 const Home = () => {
-  const [restaurants, updateResturants] = useState([]);
-  const [currentPage, changePage] = useState(1);
-  const [currentRestaurants, updateCurrentRestaurants] = useState([]);
+  const [restaurants, setResturants] = useState([]);
+  const [page, setPage] = useState(1);
+  const [currentRestaurants, setCurrentRestaurants] = useState([]);
   const [genre, setGenre] = useState('All');
-  const [currentState, setNewState] = useState('All');
-  const [currentAttire, setAttire] = useState('All');
+  const [addressState, setAddressState] = useState('All');
+  const [attire, setAttire] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortByNameDirection, changeSorttByNameDirection] = useState(true);
-  const [sortByStateDirection, changeSortByStateDirection] = useState(true);
+  const [sortByNameDirection, setSortByNameDirection] = useState(true);
+  const [sortByStateDirection, setSortByStateDirection] = useState(true);
+
+  const pageSize = 10;
 
   const nextPage = () => {
-    if (currentPage * 10 < currentRestaurants.length) {
-      changePage(currentPage + 1);
+    if (page * pageSize < currentRestaurants.length) {
+      setPage(page + 1);
     }
   }
 
   const previousPage = () => {
-    if (currentPage > 1) {
-      changePage(currentPage - 1);
+    if (page > 1) {
+      setPage(page - 1);
     }
   }
 
@@ -37,8 +39,8 @@ const Home = () => {
       .then((response) => response.json())
       .then((responses) => {
         responses.sort((responseA, responseB) => responseA.name.localeCompare(responseB.name));
-        updateResturants(responses);
-        updateCurrentRestaurants(responses);
+        setResturants(responses);
+        setCurrentRestaurants(responses);
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +52,7 @@ const Home = () => {
   };
 
   const handleStateChange = (event) => {
-    setNewState(event.target.value);
+    setAddressState(event.target.value);
   }
 
   const handleSearchInputChange = (event) => {
@@ -68,8 +70,8 @@ const Home = () => {
     } else  {
       sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantA.name.localeCompare(restaurantB.name));
     }
-    updateCurrentRestaurants(sortedRestaurants);
-    changeSorttByNameDirection(!sortByNameDirection);
+    setCurrentRestaurants(sortedRestaurants);
+    setSortByNameDirection(!sortByNameDirection);
   }
 
   const handleSortByState =  () => {
@@ -79,17 +81,17 @@ const Home = () => {
     } else  {
       sortedRestaurants = currentRestaurants.sort((restaurantA, restaurantB) => restaurantA.state.localeCompare(restaurantB.state));
     }
-    updateCurrentRestaurants(sortedRestaurants);
-    changeSortByStateDirection(!sortByStateDirection);
+    setCurrentRestaurants(sortedRestaurants);
+    setSortByStateDirection(!sortByStateDirection);
   }
 
-  const onSearchInputKeyDownHandler = (event) => {
+  const handleSearchInputKeyDown = (event) => {
     if (event.key === 'Enter') {
       applyFilters();
     }
   };
 
-  const clearSearch = () => {
+  const clearSearchResultsIfNeeded = () => {
     if (searchTerm === '') {
       applyFilters();
     }
@@ -99,14 +101,16 @@ const Home = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filteredRestaurants = restaurants.filter(restaurant => {
       return (
-        ((currentState === 'All') || (restaurant.state === currentState)) &&
+        ((addressState === 'All') || (restaurant.state === addressState)) &&
         ((genre === 'All') || (restaurant.genre.includes(genre))) &&
-        ((currentAttire === 'All') || (restaurant.attire === currentAttire)) &&
-        ((searchTerm.length === 0) || restaurant.name.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.genre.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm))
+        ((attire === 'All') || (restaurant.attire === attire)) &&
+        ((searchTerm.length === 0) || restaurant.name.toLowerCase().includes(lowerCaseSearchTerm)
+          || restaurant.genre.toLowerCase().includes(lowerCaseSearchTerm)
+          || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm))
       )
     });
-    updateCurrentRestaurants(filteredRestaurants);
-    changePage(1);
+    setCurrentRestaurants(filteredRestaurants);
+    setPage(1);
   };
 
   const foodGenres = [
@@ -127,14 +131,14 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [genre, currentState, currentAttire]);
+  }, [genre, addressState, attire]);
 
   useEffect(() => {
     fetchResturaunts();
   }, []);
 
   useEffect(() => {
-    clearSearch();
+    clearSearchResultsIfNeeded();
   }, [searchTerm]);
 
   return (
@@ -147,7 +151,7 @@ const Home = () => {
           size="65"
           placeholder="Search for restuarants"
           onChange={handleSearchInputChange}
-          onKeyPress={onSearchInputKeyDownHandler}
+          onKeyPress={handleSearchInputKeyDown}
         />
         <button
           className="search-button"
@@ -158,16 +162,16 @@ const Home = () => {
       </div>
       <div className="selectors">
         <Selector title={'Pick your favorite type of food:'} currentValue={genre} handleChange={handleGenreChange} options={foodGenres} />
-        <Selector title={'Pick your state:'} currentValue={currentState} handleChange={handleStateChange} options={stateAbbreviations} />
-        <Selector title={'Pick your dress attire:'} currentValue={currentAttire} handleChange={handleAttireChange} options={attireOptions} />
+        <Selector title={'Pick your state:'} currentValue={addressState} handleChange={handleStateChange} options={stateAbbreviations} />
+        <Selector title={'Pick your dress attire:'} currentValue={attire} handleChange={handleAttireChange} options={attireOptions} />
       </div>
-      <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} handleSortByName={handleSortByName} handleSortByState={handleSortByState} sortByNameDirection={sortByNameDirection} sortByStateDirection={sortByStateDirection} />
+      <Restuarants restaurants={currentRestaurants.slice((page - 1) * pageSize, page * pageSize)} handleSortByName={handleSortByName} handleSortByState={handleSortByState} sortByNameDirection={sortByNameDirection} sortByStateDirection={sortByStateDirection} />
       { currentRestaurants.length === 0 && (
           <div className="no-results">
             There does not seem to be any results. Please adjust options to find more restaurants
           </div>
         )}
-      <Pagination nextPage={nextPage} previousPage={previousPage} currentPage={currentPage} currentRestaurantsLength={currentRestaurants.length} />
+      <Pagination nextPage={nextPage} previousPage={previousPage} page={page} listLength={currentRestaurants.length} pageSize={pageSize} />
    </div>
   );
 };

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import './MoreInfo.css';
 
-const MoreInfo = ({ currentRestaurant, isExpanded }) => {
+const MoreInfo = ({ restaurant, isVisible }) => {
 
   const handleCloseMoreInfoClick = () => {
-    isExpanded(false);
+    isVisible(false);
   }
 
-  const { name, city, state, telephone, website, address1, zip, lat, long, hours } = currentRestaurant;
+  const { name, city, state, telephone, website, address1, zip, lat, long, hours } = restaurant;
 
   return (
     <div className="more-info-container">
@@ -86,7 +86,7 @@ const MoreInfo = ({ currentRestaurant, isExpanded }) => {
 };
 
 MoreInfo.propTypes = {
-  currentRestaurant: PropTypes.shape({
+  restaurant: PropTypes.shape({
     name: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
@@ -98,7 +98,7 @@ MoreInfo.propTypes = {
     long:PropTypes.string.isRequired,
     hours:PropTypes.string.isRequired,
   }).isRequired,
-  isExpanded: PropTypes.func.isRequired,
+  isVisible: PropTypes.func.isRequired,
 };
 
 export default MoreInfo;

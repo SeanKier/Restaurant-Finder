@@ -6,11 +6,11 @@ import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import './Restuarants.css';
 import MoreInfo from './MoreInfo';
 
-const RestaurantItem = ({ restaurant, isExpanded, setCurrentRestaurant }) => {
+const RestaurantItem = ({ restaurant, isVisible, setRestaurant }) => {
 
   const handleShowMoreInfoClick = () => {
-    setCurrentRestaurant(restaurant);
-    isExpanded(true);
+    setRestaurant(restaurant);
+    isVisible(true);
   };
 
   const { name, city, state, telephone, genre } = restaurant;
@@ -45,13 +45,13 @@ RestaurantItem.propTypes = {
     telephone: PropTypes.string.isRequired,
     genre:PropTypes.string.isRequired,
   }).isRequired,
-  isExpanded: PropTypes.func.isRequired,
-  setCurrentRestaurant: PropTypes.func.isRequired
+  isVisible: PropTypes.func.isRequired,
+  setRestaurant: PropTypes.func.isRequired
 };
 
 const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByNameDirection, sortByStateDirection }) => {
-  const [currentRestaurant, setCurrentRestaurant] = useState({});
-  const [expanded, isExpanded] = useState(false);
+  const [restaurant, setRestaurant] = useState({});
+  const [visible, isVisible] = useState(false);
 
   return (
     <div className="restuarant-container">
@@ -108,11 +108,11 @@ const Restuarants = ({ restaurants, handleSortByName, handleSortByState, sortByN
         </tr>
         </thead>
         <tbody>
-        {restaurants.map((restaurant, i) => <RestaurantItem restaurant={restaurant} isExpanded={isExpanded} setCurrentRestaurant={setCurrentRestaurant} key={i}/>)}
+        {restaurants.map((restaurant, i) => <RestaurantItem restaurant={restaurant} isVisible={isVisible} setRestaurant={setRestaurant} key={i}/>)}
         </tbody>
       </table>
-      { expanded && (
-        <MoreInfo currentRestaurant={currentRestaurant} isExpanded={isExpanded} />
+      { visible && (
+        <MoreInfo restaurant={restaurant} isVisible={isVisible} />
       )}
     </div>
   )
