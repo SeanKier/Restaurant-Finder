@@ -96,33 +96,17 @@ const Home = () => {
   }
 
   const applyFilters = () => {
-    let filteredByGenre = restaurants;
-    if (genre !== 'All') {
-      filteredByGenre = filteredByGenre.filter((restaurant) => {
-        return restaurant.genre.includes(genre);
-      })
-    }
-    let filteredByState = filteredByGenre;
-    if (currentState !== 'All') {
-      filteredByState = filteredByState.filter((restaurant) => {
-        return restaurant.state === currentState;
-      })
-    }
-    let filteredByAttire = filteredByState;
-    if (currentAttire !== 'All') {
-      filteredByAttire = filteredByAttire.filter((restaurant) => {
-        return restaurant.attire === currentAttire;
-      })
-    }
-    let filteredBySearch = filteredByAttire;
-    if (searchTerm !== '') {
-      filteredBySearch = filteredBySearch.filter((restaurant) => {
-        const lowerCaseSearchTerm = searchTerm.toLowerCase();
-        return restaurant.name.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.state.toLowerCase() === lowerCaseSearchTerm || restaurant.genre.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm);
-      })
-    }
-    updateCurrentRestaurants(filteredBySearch);
-  }
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredRestaurants = restaurants.filter(restaurant => {
+      return (
+        ((currentState === 'All') || (restaurant.state === currentState)) &&
+        ((genre === 'All') || (restaurant.genre.includes(genre))) &&
+        ((currentAttire === 'All') || (restaurant.attire === currentAttire)) &&
+        ((searchTerm.length === 0) || restaurant.name.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.genre.toLowerCase().includes(lowerCaseSearchTerm) || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm))
+      )
+    });
+    updateCurrentRestaurants(filteredRestaurants);
+  };
 
   const foodGenres = ['American', 'Seafood', 'International', 'Asian', 'Cafe'];
   const stateAbbreviations = [
