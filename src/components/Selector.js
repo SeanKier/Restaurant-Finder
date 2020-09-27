@@ -1,8 +1,10 @@
 import React from 'react';
 
+import './Selector.css';
+
 const Selector = ({ currentValue, handleChange, options, title }) => (
-  <div>
-    <label className="selector">
+  <div className="selector">
+    <label>
       {title}
       <select value={currentValue} onChange={handleChange}>
         <option value="All">All</option>

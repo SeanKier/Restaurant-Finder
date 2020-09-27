@@ -57,3 +57,9 @@ th {
   min-width: 500px;
   min-height: 300px;
  }
+
+ .selectors {
+   display: flex;
+   justify-content: center;
+   margin: 10px;
+ }

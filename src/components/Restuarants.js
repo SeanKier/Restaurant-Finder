@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import './Restuarants.css';
-import './MoreInfo.css';
 import MoreInfo from './MoreInfo';
 
 const RestaurantItem = ({ restaurant, isExpanded, setCurrentRestaurant }) => {

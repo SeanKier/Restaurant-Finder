@@ -11,6 +11,7 @@ const Home = () => {
   const [currentRestaurants, updateCurrentRestaurants] = useState([]);
   const [genre, setGenre] = useState('All');
   const [currentState, setNewState] = useState('All');
+  const [currentAttire, setAttire] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 
   const nextPage = () => {
@@ -54,6 +55,10 @@ const Home = () => {
     setSearchTerm(event.target.value);
   }
 
+  const handleAttireChange = (event) => {
+    setAttire(event.target.value);
+  }
+
   const onSearchInputKeyDownHandler = (event) => {
     if (event.key === 'Enter') {
       applyFilters();
@@ -79,7 +84,13 @@ const Home = () => {
         return restaurant.state === currentState;
       })
     }
-    let filteredBySearch = filteredByState;
+    let filteredByAttire = filteredByGenre;
+    if (currentAttire !== 'All') {
+      filteredByAttire = filteredByAttire.filter((restaurant) => {
+        return restaurant.attire === currentAttire;
+      })
+    }
+    let filteredBySearch = filteredByAttire;
     if (searchTerm !== '') {
       filteredBySearch = filteredBySearch.filter((restaurant) => {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -97,10 +108,11 @@ const Home = () => {
     'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
     'VT','VI','VA','WA','WV','WI','WY'
    ];
+   const attireOptions = ['casual', 'smart asual', 'business casual', 'formal'];
 
   useEffect(() => {
     applyFilters();
-  }, [genre, currentState]);
+  }, [genre, currentState, currentAttire]);
 
   useEffect(() => {
     fetchResturaunts();
@@ -129,8 +141,11 @@ const Home = () => {
           GO!
         </button>
       </div>
-      <Selector title={'Pick your favorite type of food:'} currentValue={genre} handleChange={handleGenreChange} options={foodGenres} />
-      <Selector title={'Pick your state:'} currentValue={currentState} handleChange={handleStateChange} options={stateAbbreviations} />
+      <div className="selectors">
+        <Selector title={'Pick your favorite type of food:'} currentValue={genre} handleChange={handleGenreChange} options={foodGenres} />
+        <Selector title={'Pick your state:'} currentValue={currentState} handleChange={handleStateChange} options={stateAbbreviations} />
+        <Selector title={'Pick your dress attire:'} currentValue={currentAttire} handleChange={handleAttireChange} options={attireOptions} />
+      </div>
       <Restuarants restaurants={currentRestaurants.slice((currentPage - 1) * 10, currentPage * 10)} />
       { currentRestaurants.length === 0 && (
           <div className="no-results">
