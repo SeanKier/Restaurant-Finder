@@ -109,7 +109,13 @@ const Home = () => {
     changePage(1);
   };
 
-  const foodGenres = ['American', 'Seafood', 'International', 'Asian', 'Cafe'];
+  const foodGenres = [
+    'American', 'Seafood', 'International', 'Asian', 'Cafe', 'Steak', 'Traditional',
+    'European', 'French', 'Belgian', 'Vegetarian', 'Contemporary', 'Oysters', 'Italian',
+    'Bakery', 'Grill', 'Japanese', 'Sushi', 'Continental', 'Hawaiian', 'Polynesian',
+    'Pacific Rim', 'Cafe', 'Vietnamese', 'Bistro', 'Irish', 'British', 'Eclectic', 'Kosher',
+    'Pasta', 'Sandwiches', 'Fusion'
+  ];
   const stateAbbreviations = [
     'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
     'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA',
