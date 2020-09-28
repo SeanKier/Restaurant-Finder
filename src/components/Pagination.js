@@ -9,6 +9,10 @@ import './Pagination.css';
 const Pagination = ({ previousPage, nextPage, page, listLength, pageSize }) => {
   const previousButtonIsActive = page > 1;
   const nextButtonIsActive = page * pageSize < listLength && listLength !== 0;
+  let totalNumberPages = Math.floor(listLength / pageSize);
+  if (totalNumberPages !== listLength / pageSize) {
+    totalNumberPages += 1;
+  }
 
   return (
     <div className="pagination-container">
@@ -24,6 +28,9 @@ const Pagination = ({ previousPage, nextPage, page, listLength, pageSize }) => {
           <div>
             Previous Page
           </div>
+        </div>
+        <div className="page-number">
+          {`Page ${page} of ${totalNumberPages}`}
         </div>
         <div
           className="pagination-button"
