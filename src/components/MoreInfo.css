@@ -15,7 +15,6 @@
 .more-info-container {
   position: absolute;
   top: 0%;
-  left: 30%;
   display: flex;
   justify-content: center;
 }
