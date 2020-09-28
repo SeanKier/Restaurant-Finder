@@ -29,9 +29,11 @@ const Pagination = ({ previousPage, nextPage, page, listLength, pageSize }) => {
             Previous Page
           </div>
         </div>
-        <div className="page-number">
-          {`Page ${page} of ${totalNumberPages}`}
-        </div>
+        { listLength !== 0 && (
+          <div className="page-number">
+            {`Page ${page} of ${totalNumberPages}`}
+          </div>
+        )}
         <div
           className="pagination-button"
           onClick={nextPage}
