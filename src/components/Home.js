@@ -15,6 +15,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortByNameDirection, setSortByNameDirection] = useState(true);
   const [sortByStateDirection, setSortByStateDirection] = useState(true);
+  const [lastSortedBy, setLastSortedBy] = useState('none');
 
   const pageSize = 10;
 
@@ -72,6 +73,7 @@ const Home = () => {
     }
     setCurrentRestaurants(sortedRestaurants);
     setSortByNameDirection(!sortByNameDirection);
+    setLastSortedBy('name');
   }
 
   const handleSortByState =  () => {
@@ -83,6 +85,7 @@ const Home = () => {
     }
     setCurrentRestaurants(sortedRestaurants);
     setSortByStateDirection(!sortByStateDirection);
+    setLastSortedBy('state');
   }
 
   const handleSearchInputKeyDown = (event) => {
@@ -99,7 +102,7 @@ const Home = () => {
 
   const applyFilters = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    const filteredRestaurants = restaurants.filter(restaurant => {
+    let filteredRestaurants = restaurants.filter(restaurant => {
       return (
         ((addressState === 'All') || (restaurant.state === addressState)) &&
         ((genre === 'All') || (restaurant.genre.includes(genre))) &&
@@ -109,6 +112,13 @@ const Home = () => {
           || restaurant.city.toLowerCase().includes(lowerCaseSearchTerm))
       )
     });
+    if (lastSortedBy === 'name' && !sortByNameDirection) {
+      filteredRestaurants = filteredRestaurants.sort((restaurantA, restaurantB) => restaurantB.name.localeCompare(restaurantA.name));
+    } else if (lastSortedBy === 'state' && !sortByStateDirection) {
+      filteredRestaurants = filteredRestaurants.sort((restaurantA, restaurantB) => restaurantB.state.localeCompare(restaurantA.state));
+    } else if (lastSortedBy === 'state' && sortByStateDirection) {
+      filteredRestaurants = filteredRestaurants.sort((restaurantA, restaurantB) => restaurantA.state.localeCompare(restaurantB.state));
+    }
     setCurrentRestaurants(filteredRestaurants);
     setPage(1);
   };
