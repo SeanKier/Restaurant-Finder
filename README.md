@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Web Application allowing users to find restarunts based upon food genres, attire and their location.<br />
+This project was built as an excerise in client side pagination and filtering.<br />
+Link to deployed apllicaiton demo:<br />
+https://radiant-chamber-51054.herokuapp.com/
+![Image of HomePage](https://imgur.com/ZhZ1lOb.png)
+![Image of Modal](https://imgur.com/G3zbvcA.png)
 
 ## Available Scripts
 
