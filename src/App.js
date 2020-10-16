@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>
-        Charter/Spectrum Front End Code Challenge
+        Restaurant Finder
       </h1>
       <Home />
     </div>
